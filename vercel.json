@@ -4,7 +4,10 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "functions": {
-    "api/update.ts": { "maxDuration": 60 }
+    "api/update.ts": {
+      "maxDuration": 60,
+      "includeFiles": "data/**"
+    }
   },
   "headers": [
     {

@@ -31,8 +31,9 @@ export function UpdateNowButton(): React.ReactElement {
         body: JSON.stringify({}),
       });
       if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error((body as { error?: string }).error ?? `Update failed (HTTP ${res.status})`);
+        const body = (await res.json().catch(() => ({}))) as { error?: string; detail?: string };
+        const msg = [body.error, body.detail].filter(Boolean).join(' — ');
+        throw new Error(msg || `Update failed (HTTP ${res.status})`);
       }
       const data = (await res.json()) as { run: UpdateRun; dataset: Dataset; workflowDispatched: boolean };
       setRun(data.run);

@@ -27,6 +27,11 @@ export interface PipelineOptions {
   now?: Date;
   /** Skip network fetching of item detail pages (fast mode). */
   fetchDetailPages?: boolean;
+  /**
+   * Wall-clock budget in ms. Once exceeded, remaining sources are marked
+   * skipped_time and the run completes gracefully (serverless safety).
+   */
+  timeBudgetMs?: number;
 }
 
 export interface ProgressEvent {
@@ -286,9 +291,14 @@ export async function runPipeline(store: StorageAdapter, opts: PipelineOptions):
   const changes: OpportunityChange[] = [...dataset.changes];
 
   const selected = sources.filter((s) => !opts.sourceIds || opts.sourceIds.includes(s.id));
+  const pipelineStart = Date.now();
 
   for (const source of selected) {
     const startedAt = Date.now();
+    if (opts.timeBudgetMs && Date.now() - pipelineStart > opts.timeBudgetMs) {
+      run.sourceResults.push({ sourceId: source.id, sourceName: source.name, status: 'skipped_time', fetchedPages: 0, found: 0, error: 'time budget exhausted — will be covered by the next scheduled run', durationMs: 0 });
+      continue;
+    }
     if (!source.active) {
       run.sourceResults.push({ sourceId: source.id, sourceName: source.name, status: 'skipped_inactive', fetchedPages: 0, found: 0, error: null, durationMs: 0 });
       continue;

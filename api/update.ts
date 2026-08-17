@@ -2,13 +2,18 @@
  * POST /api/update — the serverless side of the Update Now button.
  *
  * Runs the same ingestion pipeline as GitHub Actions, but scoped for a
- * serverless time budget: sources are processed in a rate-limited batch and
- * results are returned directly to the dashboard (which merges them into the
- * in-browser dataset immediately). The durable, committed dataset is produced
- * by the GitHub Actions runs; if GITHUB_TOKEN/GITHUB_REPO are configured this
- * endpoint ALSO dispatches the full workflow so the repository data catches up.
+ * serverless time budget: sources are processed within a wall-clock budget
+ * and results are returned directly to the dashboard (which merges them into
+ * the in-browser dataset immediately). The durable, committed dataset is
+ * produced by the GitHub Actions runs; if GITHUB_TOKEN/GITHUB_REPO are
+ * configured this endpoint ALSO dispatches the full workflow so the
+ * repository data catches up.
  *
  * Zero mandatory keys: works with no environment variables at all.
+ *
+ * Seed data loading is defensive: it tries the bundled filesystem first and
+ * falls back to fetching the deployment's own static /data/*.json files
+ * (which always exist — the build copies them into the static output).
  */
 import type { Dataset, Source, UpdateRun, UserProfile } from '../src/core/types';
 import type { StorageAdapter } from '../src/store/adapter';
@@ -19,8 +24,8 @@ import path from 'node:path';
 
 export const config = { maxDuration: 60 };
 
-/** Read-only bootstrap + in-memory writes: serverless filesystems are ephemeral,
- * so results are returned in the response instead of persisted. */
+/** In-memory store: serverless filesystems are ephemeral, so results are
+ * returned in the response instead of persisted. */
 class MemoryStore implements StorageAdapter {
   private dataset: Dataset = { ...EMPTY_DATASET, opportunities: [], changes: [] };
   private runs: UpdateRun[] = [];
@@ -35,17 +40,23 @@ class MemoryStore implements StorageAdapter {
   async saveRuns(r: UpdateRun[]) { this.runs = r; }
   async loadProfile() { return this.profile; }
   async saveProfile(p: UserProfile) { this.profile = p; }
-  getState() { return { dataset: this.dataset, sources: this.sources, runs: this.runs }; }
 }
 
-async function readBundled<T>(rel: string, fallback: T): Promise<T> {
-  // Data files are bundled with the deployment (they live in the repo).
+async function readBundled<T>(rel: string, selfOrigin: string | null, fallback: T): Promise<T> {
+  // 1) Filesystem candidates (repo layout in dev / includeFiles on Vercel)
   const candidates = [
     path.join(process.cwd(), 'data', rel),
     path.join(process.cwd(), 'public', 'data', rel),
   ];
   for (const p of candidates) {
     try { return JSON.parse(await fs.readFile(p, 'utf8')) as T; } catch { /* next */ }
+  }
+  // 2) The deployment's own static files — always present after a build.
+  if (selfOrigin) {
+    try {
+      const res = await fetch(`${selfOrigin}/data/${rel}`, { headers: { accept: 'application/json' } });
+      if (res.ok) return (await res.json()) as T;
+    } catch { /* fall through */ }
   }
   return fallback;
 }
@@ -61,37 +72,59 @@ interface Res {
   setHeader(k: string, v: string): void;
 }
 
-export default async function handler(req: Req, res: Res): Promise<void> {
-  if (req.method !== 'POST') {
-    res.status(405).json({ error: 'method-not-allowed' });
-    return;
-  }
+function headerStr(h: string | string[] | undefined): string | null {
+  if (Array.isArray(h)) return h[0] ?? null;
+  return h ?? null;
+}
 
-  const secret = process.env.UPDATE_SECRET;
-  if (secret) {
-    const provided = req.headers['x-update-key'];
-    if (provided !== secret) {
-      res.status(401).json({ error: 'unauthorized' });
+export default async function handler(req: Req, res: Res): Promise<void> {
+  try {
+    if (req.method !== 'POST') {
+      res.status(405).json({ error: 'method-not-allowed' });
       return;
     }
-  }
 
-  const body = (typeof req.body === 'object' && req.body !== null ? req.body : {}) as {
-    sourceIds?: string[];
-  };
+    const secret = process.env.UPDATE_SECRET;
+    if (secret) {
+      const provided = headerStr(req.headers['x-update-key']);
+      if (provided !== secret) {
+        res.status(401).json({ error: 'unauthorized' });
+        return;
+      }
+    }
 
-  const sources = (await readBundled<{ sources: Source[] }>('sources.json', { sources: [] })).sources;
-  const profile = await readBundled<UserProfile | null>('profile.json', null);
-  const seedDataset = await readBundled<Dataset | null>('opportunities.json', null);
+    // Reconstruct this deployment's own origin for static-data fallback.
+    const host = headerStr(req.headers['x-forwarded-host']) ?? headerStr(req.headers.host);
+    const proto = headerStr(req.headers['x-forwarded-proto']) ?? 'https';
+    const selfOrigin = host ? `${proto}://${host}` : null;
 
-  const store = new MemoryStore(sources, profile, seedDataset);
+    const body = (typeof req.body === 'object' && req.body !== null ? req.body : {}) as {
+      sourceIds?: string[];
+    };
 
-  try {
+    const [sourcesWrapper, profile, seedDataset] = await Promise.all([
+      readBundled<{ sources: Source[] }>('sources.json', selfOrigin, { sources: [] }),
+      readBundled<UserProfile | null>('profile.json', selfOrigin, null),
+      readBundled<Dataset | null>('opportunities.json', selfOrigin, null),
+    ]);
+    const sources = sourcesWrapper.sources;
+
+    if (sources.length === 0) {
+      res.status(500).json({
+        error: 'no-sources-available',
+        detail: 'Could not load data/sources.json from the function bundle or the static deployment. Check that data/ is committed and the build ran scripts/sync-data.mjs.',
+      });
+      return;
+    }
+
+    const store = new MemoryStore(sources, profile, seedDataset);
+
     const { run, dataset } = await runPipeline(store, {
       trigger: 'manual_ui',
       sourceIds: body.sourceIds,
-      maxPagesPerSource: 3, // serverless time budget
+      maxPagesPerSource: 2,   // serverless time budget
       fetchDetailPages: true,
+      timeBudgetMs: 40_000,   // finish gracefully well inside maxDuration=60s
     });
 
     // Optionally dispatch the full GitHub Actions workflow for a durable run.
@@ -117,6 +150,8 @@ export default async function handler(req: Req, res: Res): Promise<void> {
     res.setHeader('cache-control', 'no-store');
     res.status(200).json({ run, dataset, workflowDispatched });
   } catch (err) {
-    res.status(500).json({ error: err instanceof Error ? err.message : 'update-failed' });
+    // Never fail anonymously — always return a diagnosable message.
+    const message = err instanceof Error ? `${err.name}: ${err.message}` : String(err);
+    res.status(500).json({ error: message });
   }
 }

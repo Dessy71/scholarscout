@@ -242,7 +242,7 @@ export interface SavedOpportunity {
 export interface SourceRunResult {
   sourceId: string;
   sourceName: string;
-  status: 'success' | 'failed' | 'skipped_robots' | 'skipped_inactive';
+  status: 'success' | 'failed' | 'skipped_robots' | 'skipped_inactive' | 'skipped_time';
   fetchedPages: number;
   found: number;
   error: string | null;
