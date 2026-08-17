@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Opportunities Feed</title>
+    <link>https://example.org</link>
+    <item>
+      <title>Fully Funded Masters Scholarship in Computer Science for African Students 2026</title>
+      <link>https://example.org/opportunities/cs-masters-2026?utm_source=rss&amp;utm_medium=feed</link>
+      <description><![CDATA[Applications are open for a fully funded master's scholarship in Computer Science at Example University. Open to African nationals including Ghana. Covers tuition fees, flights and a living allowance. A second class lower (2:2) degree is accepted. Deadline: 30 September 2026.]]></description>
+      <pubDate>Mon, 10 Aug 2026 08:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Celebrity gossip roundup for the week</title>
+      <link>https://example.org/gossip/week-33</link>
+      <description>Nothing about education here.</description>
+    </item>
+    <item>
+      <title>Clean Air Fellowship for Young African Leaders — Fully Funded</title>
+      <link>https://example.org/opportunities/clean-air-fellowship</link>
+      <description><![CDATA[A fully funded fellowship on air quality monitoring and clean air technology for African applicants. Travel, accommodation and stipend covered. Applications close 2026-10-15.]]></description>
+    </item>
+  </channel>
+</rss>

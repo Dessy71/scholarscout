@@ -1,0 +1,11 @@
+node_modules
+dist
+.env
+.env.local
+.env.*.local
+*.tsbuildinfo
+.vercel
+public/data
+coverage
+.DS_Store
+data/.lock.json

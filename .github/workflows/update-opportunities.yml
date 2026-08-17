@@ -1,0 +1,65 @@
+name: Update opportunities
+
+on:
+  schedule:
+    # Africa/Accra is UTC+0 year-round (no DST), so cron in UTC maps directly.
+    - cron: '0 0 * * *'   # 00:00 Africa/Accra
+    - cron: '0 13 * * *'  # 13:00 Africa/Accra
+  workflow_dispatch:
+    inputs:
+      sources:
+        description: 'Comma-separated source ids (empty = all sources)'
+        required: false
+        default: ''
+
+# Lock: never run two ingestions at once; a manual dispatch queues behind a
+# scheduled run instead of overlapping it.
+concurrency:
+  group: update-opportunities
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ingestion
+        run: |
+          TRIGGER=scheduled
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then TRIGGER=workflow_dispatch; fi
+          EXTRA=""
+          if [ -n "${{ github.event.inputs.sources }}" ]; then EXTRA="--sources=${{ github.event.inputs.sources }}"; fi
+          npm run ingest -- --trigger=$TRIGGER $EXTRA
+
+      - name: Commit updated data
+        run: |
+          git config user.name "scholarscout-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "chore(data): scheduled opportunity update $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git pull --rebase origin ${{ github.ref_name }}
+            git push
+          fi
+
+      - name: Report failure
+        if: failure()
+        run: |
+          echo "::error title=ScholarScout update failed::The ingestion run failed. Check the logs above; individual source errors are recorded in data/runs.json."

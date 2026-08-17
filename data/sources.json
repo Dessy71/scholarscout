@@ -1,0 +1,492 @@
+{
+  "sources": [
+    {
+      "id": "ghana-scholarships-authority",
+      "name": "Ghana Scholarships Authority",
+      "url": "https://scholarships.gov.gh/",
+      "country": "Ghana",
+      "region": "africa",
+      "sourceType": "government",
+      "active": true,
+      "parser": "html_page",
+      "trust": "official",
+      "seed": {
+        "title": "Ghana Scholarships Authority — Foreign Scholarships for Ghanaian Students",
+        "organization": "Ghana Scholarships Authority (formerly Scholarships Secretariat)",
+        "country": "Ghana",
+        "region": "africa",
+        "type": "masters_scholarship",
+        "level": "masters",
+        "summary": "The Ghana Scholarships Authority administers government-funded local and foreign scholarships for Ghanaian students, including bilateral awards to study abroad.",
+        "fields": [
+          "computer_science",
+          "information_technology"
+        ]
+      },
+      "keywords": [
+        "scholarship",
+        "postgraduate",
+        "masters",
+        "foreign"
+      ],
+      "notes": "Official Ghanaian government scholarship body (scholarships.gov.gh). Ghana-specific by definition.",
+      "lastChecked": "2026-08-17T01:04:01.189Z",
+      "lastSuccess": "2026-08-17T01:04:03.705Z",
+      "failureCount": 0,
+      "robotsStatus": "allowed"
+    },
+    {
+      "id": "chevening",
+      "name": "Chevening Scholarships",
+      "url": "https://www.chevening.org/scholarship/ghana/",
+      "country": "United Kingdom",
+      "region": "uk",
+      "sourceType": "government",
+      "active": true,
+      "parser": "html_page",
+      "trust": "official",
+      "seed": {
+        "title": "Chevening Scholarships (Ghana) — Fully Funded UK Master's",
+        "organization": "UK Foreign, Commonwealth & Development Office",
+        "country": "United Kingdom",
+        "region": "uk",
+        "type": "masters_scholarship",
+        "level": "masters",
+        "applicationUrl": "https://www.chevening.org/apply/",
+        "summary": "Chevening is the UK government's international awards scheme: a fully funded one-year master's degree in the UK for emerging leaders, with a dedicated Ghana allocation.",
+        "fields": [
+          "computer_science",
+          "information_technology",
+          "data_science"
+        ]
+      },
+      "notes": "Ghana-specific page. Requires 2 years (2,800 hours) work experience.",
+      "lastChecked": "2026-08-17T01:04:03.713Z",
+      "lastSuccess": "2026-08-17T01:04:09.152Z",
+      "failureCount": 0,
+      "robotsStatus": "allowed"
+    },
+    {
+      "id": "daad-epos",
+      "name": "DAAD — Development-Related Postgraduate Courses (EPOS)",
+      "url": "https://www.daad.de/go/en/stipa50076777",
+      "country": "Germany",
+      "region": "europe",
+      "sourceType": "government",
+      "active": true,
+      "parser": "html_page",
+      "trust": "official",
+      "seed": {
+        "title": "DAAD EPOS — Development-Related Postgraduate Courses in Germany",
+        "organization": "DAAD (German Academic Exchange Service)",
+        "country": "Germany",
+        "region": "europe",
+        "type": "masters_scholarship",
+        "level": "masters",
+        "summary": "DAAD EPOS funds master's and some doctoral study in development-related programmes in Germany for professionals from developing countries, including Ghana, with a monthly stipend, insurance and travel allowance.",
+        "fields": [
+          "information_technology",
+          "env_tech",
+          "sustainability",
+          "tech4dev"
+        ]
+      },
+      "notes": "Official DAAD scholarship-database entry for EPOS (English). Typically requires ~2 years professional experience; degrees \"far above average\" — extract exact wording per course.",
+      "lastChecked": "2026-08-17T01:04:09.153Z",
+      "lastSuccess": "2026-08-17T01:04:13.271Z",
+      "failureCount": 0,
+      "robotsStatus": "allowed"
+    },
+    {
+      "id": "erasmus-mundus",
+      "name": "Erasmus Mundus Joint Masters",
+      "url": "https://erasmus-plus.ec.europa.eu/opportunities/opportunities-for-individuals/students/erasmus-mundus-joint-masters-scholarships",
+      "country": null,
+      "region": "europe",
+      "sourceType": "government",
+      "active": true,
+      "parser": "html_page",
+      "trust": "official",
+      "seed": {
+        "title": "Erasmus Mundus Joint Master's Scholarships",
+        "organization": "European Commission — Erasmus+",
+        "country": null,
+        "region": "europe",
+        "type": "masters_scholarship",
+        "level": "masters",
+        "applicationUrl": "https://www.eacea.ec.europa.eu/scholarships/emjm-catalogue_en",
+        "summary": "EU-funded scholarships covering participation costs plus a monthly allowance for integrated master's programmes taught across at least two European universities. Open worldwide, including Ghanaian applicants.",
+        "fields": [
+          "computer_science",
+          "software_engineering",
+          "data_science",
+          "ai",
+          "cybersecurity",
+          "climate_tech",
+          "sustainability"
+        ]
+      },
+      "notes": "Each consortium sets its own academic entry requirements — many accept a good second-class degree. Apply directly to programmes in the EMJM catalogue.",
+      "lastChecked": "2026-08-17T01:04:13.281Z",
+      "lastSuccess": "2026-08-17T01:04:15.432Z",
+      "failureCount": 0,
+      "robotsStatus": "allowed"
+    },
+    {
+      "id": "commonwealth-masters",
+      "name": "Commonwealth Master's Scholarships",
+      "url": "https://cscuk.fcdo.gov.uk/scholarships/commonwealth-masters-scholarships/",
+      "country": "United Kingdom",
+      "region": "uk",
+      "sourceType": "government",
+      "active": true,
+      "parser": "html_page",
+      "trust": "official",
+      "seed": {
+        "title": "Commonwealth Master's Scholarships (UK)",
+        "organization": "Commonwealth Scholarship Commission in the UK",
+        "country": "United Kingdom",
+        "region": "uk",
+        "type": "masters_scholarship",
+        "level": "masters",
+        "summary": "Fully funded one-year master's study in the UK for candidates from low- and middle-income Commonwealth countries (Ghana is eligible): tuition, airfare and a living stipend.",
+        "fields": [
+          "computer_science",
+          "information_technology",
+          "climate_tech",
+          "tech4dev"
+        ]
+      },
+      "notes": "Usually requires at least an upper second (2:1); extract exact wording each cycle — some development themes have flexibility.",
+      "lastChecked": "2026-08-17T01:04:15.433Z",
+      "lastSuccess": "2026-08-17T01:04:17.575Z",
+      "failureCount": 0,
+      "robotsStatus": "allowed"
+    },
+    {
+      "id": "commonwealth-shared",
+      "name": "Commonwealth Shared Scholarships",
+      "url": "https://cscuk.fcdo.gov.uk/scholarships/commonwealth-shared-scholarships/",
+      "country": "United Kingdom",
+      "region": "uk",
+      "sourceType": "government",
+      "active": true,
+      "parser": "html_page",
+      "trust": "official",
+      "seed": {
+        "title": "Commonwealth Shared Scholarships (UK)",
+        "organization": "Commonwealth Scholarship Commission in the UK",
+        "country": "United Kingdom",
+        "region": "uk",
+        "type": "masters_scholarship",
+        "level": "masters",
+        "summary": "Jointly funded fully funded UK master's scholarships for candidates from eligible low- and middle-income Commonwealth countries, including Ghana.",
+        "fields": [
+          "computer_science",
+          "information_technology"
+        ]
+      },
+      "notes": null,
+      "lastChecked": "2026-08-17T01:04:17.584Z",
+      "lastSuccess": "2026-08-17T01:04:19.768Z",
+      "failureCount": 0,
+      "robotsStatus": "allowed"
+    },
+    {
+      "id": "australia-awards",
+      "name": "Australia Awards Scholarships",
+      "url": "https://www.australiaawardsafrica.org/",
+      "country": "Australia",
+      "region": "australia_nz",
+      "sourceType": "government",
+      "active": true,
+      "parser": "html_page",
+      "trust": "official",
+      "seed": {
+        "title": "Australia Awards Scholarships",
+        "organization": "Australian Department of Foreign Affairs and Trade",
+        "country": "Australia",
+        "region": "australia_nz",
+        "type": "masters_scholarship",
+        "level": "masters",
+        "summary": "Long-term Australian government awards covering full tuition, travel and living support for study at Australian institutions; eligibility depends on the current country list for Africa.",
+        "fields": [
+          "information_technology",
+          "env_tech",
+          "sustainability"
+        ]
+      },
+      "notes": "Official Australia Awards Africa programme site. Verify Ghana inclusion in the current intake each cycle — never assume.",
+      "lastChecked": "2026-08-17T01:04:19.771Z",
+      "lastSuccess": "2026-08-17T01:04:25.368Z",
+      "failureCount": 0,
+      "robotsStatus": "allowed"
+    },
+    {
+      "id": "mext",
+      "name": "MEXT Japanese Government Scholarships",
+      "url": "https://www.studyinjapan.go.jp/en/smap-stopj-applications-research.html",
+      "country": "Japan",
+      "region": "japan",
+      "sourceType": "government",
+      "active": true,
+      "parser": "html_page",
+      "trust": "official",
+      "seed": {
+        "title": "MEXT Research (Graduate) Scholarship — Japan",
+        "organization": "Government of Japan (MEXT)",
+        "country": "Japan",
+        "region": "japan",
+        "type": "masters_scholarship",
+        "level": "masters",
+        "summary": "Japanese government scholarship for research students / master's study: tuition, monthly stipend and airfare. Ghanaians apply via the Embassy of Japan in Ghana (embassy recommendation track).",
+        "fields": [
+          "computer_science",
+          "ai",
+          "networks"
+        ]
+      },
+      "notes": "Embassy track for Ghana usually opens around April–May each year.",
+      "lastChecked": "2026-08-17T01:04:25.369Z",
+      "lastSuccess": "2026-08-17T01:04:27.484Z",
+      "failureCount": 0,
+      "robotsStatus": "unknown"
+    },
+    {
+      "id": "gks",
+      "name": "Global Korea Scholarship (GKS)",
+      "url": "https://www.studyinkorea.go.kr/en/main.do",
+      "country": "South Korea",
+      "region": "south_korea",
+      "sourceType": "government",
+      "active": true,
+      "parser": "html_page",
+      "trust": "official",
+      "seed": {
+        "title": "Global Korea Scholarship (GKS) — Graduate Degrees",
+        "organization": "National Institute for International Education (NIIED), Korea",
+        "country": "South Korea",
+        "region": "south_korea",
+        "type": "masters_scholarship",
+        "level": "masters",
+        "summary": "Korean government scholarship covering full tuition, monthly allowance, airfare and a Korean language year for graduate study. Ghana is regularly on the invited-country list (embassy and university tracks).",
+        "fields": [
+          "computer_science",
+          "ai",
+          "data_science"
+        ]
+      },
+      "notes": "Official Study in Korea portal; GKS notices under K-Scholarship > GKS Notice. GKS typically requires CGPA >= 80% of the scale — extract exact wording; verify against KNUST conversion.",
+      "lastChecked": "2026-08-17T01:04:27.485Z",
+      "lastSuccess": "2026-08-17T01:04:30.764Z",
+      "failureCount": 0,
+      "robotsStatus": "allowed"
+    },
+    {
+      "id": "csc-china",
+      "name": "Chinese Government Scholarship (CSC)",
+      "url": "https://www.campuschina.org/scholarships/index.html",
+      "country": "China",
+      "region": "china",
+      "sourceType": "government",
+      "active": true,
+      "parser": "html_page",
+      "trust": "official",
+      "seed": {
+        "title": "Chinese Government Scholarship — Bilateral & University Programmes",
+        "organization": "China Scholarship Council",
+        "country": "China",
+        "region": "china",
+        "type": "masters_scholarship",
+        "level": "masters",
+        "summary": "Chinese Government Scholarships cover tuition, accommodation and a monthly stipend for degree study in China. Ghanaians can apply via the Ghana Scholarships Authority bilateral track or directly to Chinese universities.",
+        "fields": [
+          "computer_science",
+          "software_engineering"
+        ]
+      },
+      "notes": "campuschina.org intermittently blocks automated requests (HTTP 412). Failures are recorded and skipped; the Ghana Scholarships Authority bilateral track also covers CSC awards.",
+      "lastChecked": "2026-08-17T01:04:30.767Z",
+      "lastSuccess": null,
+      "failureCount": 2,
+      "robotsStatus": "unknown"
+    },
+    {
+      "id": "mastercard-foundation",
+      "name": "Mastercard Foundation Scholars Program",
+      "url": "https://mastercardfdn.org/en/what-we-do/our-programs/mastercard-foundation-scholars-program/",
+      "country": null,
+      "region": "africa",
+      "sourceType": "fellowship_org",
+      "active": true,
+      "parser": "html_page",
+      "trust": "official",
+      "seed": {
+        "title": "Mastercard Foundation Scholars Program",
+        "organization": "Mastercard Foundation",
+        "country": null,
+        "region": "africa",
+        "type": "masters_scholarship",
+        "level": "masters",
+        "summary": "Comprehensive scholarships (tuition, living costs, mentorship) for young Africans at partner universities in Africa and abroad. Apply through each partner institution.",
+        "fields": [
+          "computer_science",
+          "information_technology",
+          "climate_tech"
+        ]
+      },
+      "notes": "Application is per partner university (e.g., KNUST, Ashesi, EPFL, McGill, Edinburgh).",
+      "lastChecked": "2026-08-17T01:04:34.430Z",
+      "lastSuccess": "2026-08-17T01:04:37.114Z",
+      "failureCount": 0,
+      "robotsStatus": "allowed"
+    },
+    {
+      "id": "clean-air-fund",
+      "name": "Clean Air Fund — News & Opportunities",
+      "url": "https://www.cleanairfund.org/news/",
+      "country": null,
+      "region": null,
+      "sourceType": "climate_org",
+      "active": true,
+      "parser": "html_list",
+      "trust": "official",
+      "listConfig": {
+        "itemSelector": "article, .card, .post, li.news-item",
+        "includeKeywords": [
+          "fellowship",
+          "programme",
+          "program",
+          "grant",
+          "apply",
+          "opportunity",
+          "training",
+          "accelerator",
+          "call for"
+        ]
+      },
+      "keywords": [
+        "clean air",
+        "air quality",
+        "fellowship",
+        "grant"
+      ],
+      "notes": "Clean-air philanthropy active in Accra. List parser scans news for open calls.",
+      "lastChecked": "2026-08-17T01:04:37.117Z",
+      "lastSuccess": "2026-08-17T01:04:39.411Z",
+      "failureCount": 0,
+      "robotsStatus": "allowed"
+    },
+    {
+      "id": "unep-tunza",
+      "name": "UNEP — Youth & Education Opportunities",
+      "url": "https://www.unep.org/get-involved",
+      "country": null,
+      "region": null,
+      "sourceType": "climate_org",
+      "active": true,
+      "parser": "html_list",
+      "trust": "official",
+      "listConfig": {
+        "itemSelector": "article, .card, li",
+        "includeKeywords": [
+          "fellowship",
+          "internship",
+          "programme",
+          "apply",
+          "youth",
+          "training",
+          "call for"
+        ]
+      },
+      "notes": "UN Environment Programme engagement page; scanned for open programmes.",
+      "lastChecked": "2026-08-17T01:04:39.411Z",
+      "lastSuccess": "2026-08-17T01:04:43.938Z",
+      "failureCount": 0,
+      "robotsStatus": "allowed"
+    },
+    {
+      "id": "opportunities-for-africans",
+      "name": "Opportunities for Africans (RSS)",
+      "url": "https://www.opportunitiesforafricans.com/feed/",
+      "country": null,
+      "region": "africa",
+      "sourceType": "aggregator",
+      "active": true,
+      "parser": "rss",
+      "trust": "reputable",
+      "keywords": [
+        "scholarship",
+        "fellowship",
+        "fully funded",
+        "masters",
+        "internship",
+        "training",
+        "bootcamp",
+        "conference",
+        "summer school",
+        "climate",
+        "tech"
+      ],
+      "notes": "Reputable aggregator for African opportunities. Every item still links to and is verified against its own page; used for discovery, not as ground truth.",
+      "lastChecked": "2026-08-17T01:04:43.938Z",
+      "lastSuccess": "2026-08-17T01:04:46.277Z",
+      "failureCount": 0,
+      "robotsStatus": "allowed"
+    },
+    {
+      "id": "opportunity-desk",
+      "name": "Opportunity Desk (RSS)",
+      "url": "https://opportunitydesk.org/feed/",
+      "country": null,
+      "region": null,
+      "sourceType": "aggregator",
+      "active": true,
+      "parser": "rss",
+      "trust": "reputable",
+      "keywords": [
+        "scholarship",
+        "fellowship",
+        "fully funded",
+        "ghana",
+        "africa",
+        "masters",
+        "bootcamp",
+        "conference",
+        "summer school",
+        "climate",
+        "clean air",
+        "tech"
+      ],
+      "notes": "Reputable global opportunity aggregator used for discovery only.",
+      "lastChecked": "2026-08-17T01:04:46.288Z",
+      "lastSuccess": "2026-08-17T01:04:49.572Z",
+      "failureCount": 0,
+      "robotsStatus": "allowed"
+    },
+    {
+      "id": "daad-scholarship-db",
+      "name": "DAAD Scholarship Database (Ghana filter)",
+      "url": "https://www2.daad.de/deutschland/stipendium/datenbank/en/21148-scholarship-database/",
+      "country": "Germany",
+      "region": "europe",
+      "sourceType": "government",
+      "active": false,
+      "parser": "html_list",
+      "trust": "official",
+      "listConfig": {
+        "itemSelector": ".resultlist li, article",
+        "includeKeywords": [
+          "scholarship",
+          "master",
+          "postgraduate"
+        ]
+      },
+      "notes": "Inactive by default: the database is JavaScript-rendered and unreliable for plain HTTP parsing. Kept as a registry example of toggling sources.",
+      "lastChecked": null,
+      "lastSuccess": null,
+      "failureCount": 0,
+      "robotsStatus": "unknown"
+    }
+  ]
+}

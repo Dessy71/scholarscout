@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>University Funding News</title>
+  <entry>
+    <title>DevOps Bootcamp Scholarship for Developing Countries</title>
+    <link rel="alternate" href="https://uni.example.edu/news/devops-bootcamp"/>
+    <summary>A funded intensive DevOps and cloud computing bootcamp open to applicants from developing countries. Tuition waiver included. Apply by 20 November 2026.</summary>
+    <updated>2026-08-01T10:00:00Z</updated>
+  </entry>
+</feed>
