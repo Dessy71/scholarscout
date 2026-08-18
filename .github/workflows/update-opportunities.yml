@@ -2,8 +2,7 @@ name: Update opportunities
 
 on:
   schedule:
-    # Africa/Accra is UTC+0 year-round (no DST), so cron in UTC maps directly.
-    - cron: '0 0 * * *'   # 00:00 Africa/Accra
+    - cron: '0 0 * * *'   # 00:00 Africa/Accra (UTC+0)
     - cron: '0 13 * * *'  # 13:00 Africa/Accra
   workflow_dispatch:
     inputs:
@@ -12,8 +11,6 @@ on:
         required: false
         default: ''
 
-# Lock: never run two ingestions at once; a manual dispatch queues behind a
-# scheduled run instead of overlapping it.
 concurrency:
   group: update-opportunities
   cancel-in-progress: false
@@ -58,8 +55,3 @@ jobs:
             git pull --rebase origin ${{ github.ref_name }}
             git push
           fi
-
-      - name: Report failure
-        if: failure()
-        run: |
-          echo "::error title=ScholarScout update failed::The ingestion run failed. Check the logs above; individual source errors are recorded in data/runs.json."
